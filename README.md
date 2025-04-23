@@ -1,7 +1,7 @@
 # AI webbot
 
 prototype:
-![alt text](image.png)
+![alt text](data/image.png)
 
 ## How to Use
 
