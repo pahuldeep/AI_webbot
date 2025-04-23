@@ -1,7 +1,7 @@
 # AI webbot
 
-prototype:
-![alt text](data/_model.png)
+System prototype:
+![alt text](data/ai_webbot.png)
 
 
 ## File Structure

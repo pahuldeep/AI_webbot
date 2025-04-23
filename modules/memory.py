@@ -97,8 +97,8 @@ class SummaryGenerator:
                 labels = self.classify_topic(summary)
 
                 summaries.append({
-                    "original": raw_chunk,
-                    "summary": summary,
+                    "long_memory": raw_chunk,
+                    "short_memory": summary,
                     "labels": labels,
                     "score": item["score"],
                 })
