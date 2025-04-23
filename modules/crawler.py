@@ -1,4 +1,5 @@
 import json
+import os
 
 import asyncio
 import logging
@@ -7,8 +8,11 @@ from crawl4ai.deep_crawling import DFSDeepCrawlStrategy
 from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 
 # Configure logging
+if not os.path.exists("logger"):
+    os.makedirs("logger")
+
 logging.basicConfig(
-    filename="web_scraping/logger/crawler.log",
+    filename="logger/crawler.log",
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
@@ -56,40 +60,21 @@ def run_crawler(url, max_pages=5):
             "markdown": [r.markdown for r in results],
             "tables": [r.media.get("tables", []) for r in results],
         }
+        
+        if not os.path.exists("data"):
+            os.makedirs("data")
 
-        with open("web_scraping/data/crawl_data.json", "w", encoding="utf-8") as f:
+        with open("data/crawl_data.json", "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
 
-        print("[✅] Crawl complete. Data saved to crawl_output.json")
+        print("Crawl complete. Data saved to crawled_data.json")
 
     asyncio.run(inner())
 
 # Run the crawler
 if __name__ == "__main__":
 
-    async def main():
-        start_url = "https://botpenguin.com"
+    url = "https://botpenguin.com"
+    max_pages = 5 
 
-        crawler = Crawler(max_depth=2, max_pages=4)
-        results = await crawler.crawl(start_url)
-
-        # save results to a file
-        dictonary = {
-            "URLS": [],
-            "markdown": [],
-            "tables": [],
-        }
-
-        for result in results:
-            
-            tables = result.media.get('tables', [])
-
-            dictonary["URLS"].append(result.url)
-            dictonary["markdown"].append(result.markdown)
-            dictonary["tables"].append(tables)
-
-        with open("web_scraping/data/crawl_output.json", "w", encoding="utf-8") as f:
-            json.dump(dictonary, f, ensure_ascii=False, indent=4)
-        print("Crawl results saved to crawl_output.json")
-
-    asyncio.run(main())
+    run_crawler(url, max_pages)

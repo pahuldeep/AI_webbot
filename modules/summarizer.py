@@ -19,7 +19,7 @@ class SummaryGenerator:
         if not self.use_local:
             try:
                 self.client = InferenceClient(token=hf_token)
-                _ = self.client.text_generation(prompt="test", model=self.model_name, max_new_tokens=5)
+                _ = self.client.text_generation(prompt="text", model=self.model_name, max_new_tokens=5)
                 logging.info("Using InferenceClient for summarization.")
             except Exception as e:
                 logging.warning(f"Inference API failed, falling back to local pipeline. Reason: {e}")
@@ -85,7 +85,7 @@ class SummaryGenerator:
             logging.error(f"Failed to classify topic: {e}")
             return []
 
-    def summarize_chunks(self, input_file="web_scraping/data/processed_chunks.json", output_file="web_scraping/data/summaries.json"):
+    def summarize_chunks(self, input_file="data/processed_chunks.json", output_file="data/summaries.json"):
         try:
             with open(input_file, "r", encoding="utf-8") as f:
                 chunks = json.load(f)

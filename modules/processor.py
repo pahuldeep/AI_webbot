@@ -8,7 +8,7 @@ from chunking import RegexChunking, SlidingWindowChunking, MultiLevelChunking
 from chunking import CosineSimilarityExtractor
 
 # Setup logging
-logging.basicConfig(filename="web_scraping\logger\extractor.log", level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+logging.basicConfig(filename="logger\extractor.log", level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
 class WebScrapeProcessor:
     def __init__(self, input_file, query=""):
@@ -117,7 +117,7 @@ class WebScrapeProcessor:
         return relevant_chunks
 
 
-    def process(self, output_file="web_scraping//data/processed_chunks.json", top_k=50, query=None):
+    def process(self, output_file="data/processed_chunks.json", top_k=50, query=None):
         logging.info("Processing started...")
         
         if query:
@@ -133,43 +133,6 @@ class WebScrapeProcessor:
         #     {"chunk": chunk, "score": score}
         #     for chunk, score in relevant_chunks[:top_k]
         # ]
-
-        # # Join smaller chunks into groups of 500+ characters
-        # merged_chunks = []
-        # buffer = ""
-        # for chunk, score in relevant_chunks[:top_k]:
-        #     if len(buffer) < 500:
-        #         buffer += " " + chunk
-        #     else:
-        #         merged_chunks.append({"chunk": buffer.strip(), "score": score})
-        #         buffer = chunk
-        # if buffer:
-        #     merged_chunks.append({"chunk": buffer.strip(), "score": score})
-
-        # merged_chunks = []
-        # buffer = ""
-        # buffer_score = 0
-
-        # for chunk, score in relevant_chunks[:top_k]:
-        #     if len(buffer) + len(chunk) < 500:
-        #         buffer += " " + chunk
-        #         buffer_score = max(buffer_score, score)
-        #     else:
-        #         if buffer:
-        #             merged_chunks.append({"chunk": buffer.strip(), "score": buffer_score})
-        #         buffer = chunk
-        #         buffer_score = score
-
-        #     while len(buffer) > 1000:
-        #         split_point = buffer.rfind(" ", 0, 1000)
-        #         if split_point == -1:
-        #             split_point = 1000
-        #         merged_chunks.append({"chunk": buffer[:split_point].strip(), "score": buffer_score})
-        #         buffer = buffer[split_point:].strip()
-
-        # if buffer:
-        #     merged_chunks.append({"chunk": buffer.strip(), "score": buffer_score})
-
 
         merged_chunks = []
         buffer = ""
@@ -214,7 +177,7 @@ class WebScrapeProcessor:
 
 
 if __name__ == "__main__":
-    processor = WebScrapeProcessor("web_scraping/data/crawl_data.json")
+    processor = WebScrapeProcessor("data/crawl_data.json")
     results = processor.process(top_k=25)
     print(f"Top relevant chunks {len(results)} saved.")
 
