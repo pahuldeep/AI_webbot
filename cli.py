@@ -1,8 +1,8 @@
 import argparse
 from modules.crawler import run_crawler
 from modules.processor import run_processor
-from modules.summarizer_module import run_summarizer
-from modules.summarizer_module import answer_query
+from modules.memory import run_summarizer
+# from modules.summarizer_module import answer_query
 
 def main():
     parser = argparse.ArgumentParser(description="Modular Web Scraping + Q&A CLI")
@@ -17,7 +17,7 @@ def main():
     process_parser.add_argument("query", help="User query to guide chunk filtering")
 
     # Summarize subcommand
-    summarize_parser = subparsers.add_parser("summarize", help="Summarize and classify relevant chunks")
+    summarize_parser = subparsers.add_parser("update_memory", help="Summarize and classify relevant chunks")
 
     # Ask subcommand
     ask_parser = subparsers.add_parser("ask", help="Answer a user query")
@@ -29,10 +29,10 @@ def main():
         run_crawler(args.url)
     elif args.command == "process":
         run_processor(args.query)
-    elif args.command == "summarize":
+    elif args.command == "update_memory":
         run_summarizer()
-    elif args.command == "ask":
-        answer_query(args.query)
+    # elif args.command == "ask":
+    #     answer_query(args.query)
     else:
         parser.print_help()
 

@@ -1,6 +1,6 @@
 import json
 import logging
-import torch
+
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForSequenceClassification
 from huggingface_hub import InferenceClient
 from scipy.special import expit
@@ -85,7 +85,7 @@ class SummaryGenerator:
             logging.error(f"Failed to classify topic: {e}")
             return []
 
-    def summarize_chunks(self, input_file="data/processed_chunks.json", output_file="data/summaries.json"):
+    def summarize_chunks(self, input_file="data/processed_chunks.json", output_file="data/memory.json"):
         try:
             with open(input_file, "r", encoding="utf-8") as f:
                 chunks = json.load(f)
@@ -110,7 +110,18 @@ class SummaryGenerator:
         except Exception as e:
             logging.error(f"Failed to summarize chunks: {e}")
 
+def run_summarizer(use_local=True, hf_token="your_token_here"):
+
+    if hf_token.startswith("hf_"):
+        print("Using InferenceClient for summarization.")
+        summarizer = SummaryGenerator(hf_token=hf_token)
+
+    else:
+        print("Using local model for summarization.")
+        summarizer = SummaryGenerator(use_local=use_local)
+
+    summarizer.summarize_chunks()
+    print("Update Memmory and topics saved to memory.json")
 
 if __name__ == "__main__":
-    summarizer = SummaryGenerator(use_local=True)  # Replace with your Hugging Face token
-    summarizer.summarize_chunks()
+    run_summarizer()

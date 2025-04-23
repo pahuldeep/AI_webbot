@@ -11,7 +11,7 @@ from chunking import CosineSimilarityExtractor
 logging.basicConfig(filename="logger\extractor.log", level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
 class WebScrapeProcessor:
-    def __init__(self, input_file, query=""):
+    def __init__(self, input_file, query=''):
         self.input_file = input_file
         self.data = self._load_data()
         self.total_context = ""
@@ -97,7 +97,7 @@ class WebScrapeProcessor:
 
         logging.info(f"Using window_size={window_size}, step={step} for sliding window chunking.")
 
-        sentence_chunker = RegexChunking(patterns=[r'(?<=[.!?])\s'])
+        # sentence_chunker = RegexChunking(patterns=[r'(?<=[.!?])\s'])
         sliding_window_chunker = SlidingWindowChunking(window_size=window_size, step=step)
 
         multi_level_chunker = MultiLevelChunking(
@@ -120,19 +120,12 @@ class WebScrapeProcessor:
     def process(self, output_file="data/processed_chunks.json", top_k=50, query=None):
         logging.info("Processing started...")
         
-        if query:
+        if query is not None:
             self.query = query
 
-        
         context = self.build_context()
         chunks = self.chunk_text(context)
         relevant_chunks = self.extract_relevant_chunks(chunks)
-
-        # Simple output format
-        # output_data = [
-        #     {"chunk": chunk, "score": score}
-        #     for chunk, score in relevant_chunks[:top_k]
-        # ]
 
         merged_chunks = []
         buffer = ""
@@ -172,12 +165,18 @@ class WebScrapeProcessor:
             logging.error(f"Failed to save output: {e}")
 
         logging.info("Processing complete.")
-        print("Processing complete. Filtered chunks saved to processed_chunks.json")
         return merged_chunks
 
+def run_processor(query = '', top_k = 25, output_file="data/crawl_data.json"):
+    """ query: str, top_k: int, output_file: str """
+    
+    processor = WebScrapeProcessor(output_file)
+    results = processor.process(query=query, top_k=top_k)
+
+    print(f"Top relevant chunks {len(results)} saved.")
 
 if __name__ == "__main__":
-    processor = WebScrapeProcessor("data/crawl_data.json")
-    results = processor.process(top_k=25)
-    print(f"Top relevant chunks {len(results)} saved.")
+
+    run_processor()
+
 
