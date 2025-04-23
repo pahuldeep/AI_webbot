@@ -3,6 +3,14 @@
 prototype:
 ![alt text](data/image.png)
 
+
+## File Structure
+- database                  - data
+- monitoring & observibily  - logger
+- core                      - modules
+
+- main                      - cli.py 
+
 ## How to Use
 
 - python cli.py crawl https://botpenguin.com
