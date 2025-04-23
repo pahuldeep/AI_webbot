@@ -1,4 +1,4 @@
-# AI_webbot
+# AI webbot
 
 prototype:
 ![alt text](image.png)
