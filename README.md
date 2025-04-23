@@ -1,5 +1,8 @@
 # AI_webbot
 
+prototype:
+![alt text](image.png)
+
 How to Use
 
 python cli.py crawl https://botpenguin.com
