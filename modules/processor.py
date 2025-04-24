@@ -4,8 +4,8 @@ import logging
 import requests
 
 from bs4 import BeautifulSoup
-from chunking import RegexChunking, SlidingWindowChunking, MultiLevelChunking
-from chunking import CosineSimilarityExtractor
+from utils.chunking import RegexChunking, SlidingWindowChunking, MultiLevelChunking
+from utils.chunking import CosineSimilarityExtractor
 
 # Setup logging
 logging.basicConfig(filename="logger\extractor.log", level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
@@ -97,7 +97,7 @@ class WebScrapeProcessor:
 
         logging.info(f"Using window_size={window_size}, step={step} for sliding window chunking.")
 
-        # sentence_chunker = RegexChunking(patterns=[r'(?<=[.!?])\s'])
+        sentence_chunker = RegexChunking(patterns=[r'(?<=[.!?])\s'])
         sliding_window_chunker = SlidingWindowChunking(window_size=window_size, step=step)
 
         multi_level_chunker = MultiLevelChunking(
@@ -176,7 +176,6 @@ def run_processor(query = '', top_k = 25, output_file="data/crawl_data.json"):
     print(f"Top relevant chunks {len(results)} saved.")
 
 if __name__ == "__main__":
-
     run_processor()
 
 

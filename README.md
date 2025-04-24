@@ -6,7 +6,7 @@ System prototype:
 
 ## File Structure
 - database                  - data
-- monitoring & observibily  - logger
+- monitoring                - logger
 - core                      - modules
 
 - main                      - cli.py 
