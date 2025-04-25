@@ -110,7 +110,7 @@ class SummaryGenerator:
         except Exception as e:
             logging.error(f"Failed to summarize chunks: {e}")
 
-def run_summarizer(use_local=True, hf_token="your_token_here"):
+def run_memory(use_local=True, hf_token="your_token_here"):
 
     if hf_token.startswith("hf_"):
         print("Using InferenceClient for summarization.")
@@ -124,4 +124,4 @@ def run_summarizer(use_local=True, hf_token="your_token_here"):
     print("Update Memmory and topics saved to memory.json")
 
 if __name__ == "__main__":
-    run_summarizer()
+    run_memory()

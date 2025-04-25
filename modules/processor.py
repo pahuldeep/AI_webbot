@@ -117,7 +117,7 @@ class WebScrapeProcessor:
         return relevant_chunks
 
 
-    def process(self, output_file="data/processed_chunks.json", top_k=50, query=None):
+    def process(self, output_file="data/chunks.json", top_k=50, query=None):
         logging.info("Processing started...")
         
         if query is not None:
@@ -167,10 +167,10 @@ class WebScrapeProcessor:
         logging.info("Processing complete.")
         return merged_chunks
 
-def run_processor(query = '', top_k = 25, output_file="data/crawl_data.json"):
-    """ query: str, top_k: int, output_file: str """
+def run_processor(query = '', top_k = 25, input_file="data/crawl_data.json"):
+    """ query: str, top_k: int, input_file: str """
     
-    processor = WebScrapeProcessor(output_file)
+    processor = WebScrapeProcessor(input_file)
     results = processor.process(query=query, top_k=top_k)
 
     print(f"Top relevant chunks {len(results)} saved.")

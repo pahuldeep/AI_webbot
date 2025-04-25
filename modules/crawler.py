@@ -57,8 +57,8 @@ def run_crawler(url, max_pages=5):
 
         data = {
             "URLS": [r.url for r in results],
-            "markdown": [r.markdown for r in results],
             "tables": [r.media.get("tables", []) for r in results],
+            "markdown": [r.markdown for r in results],
         }
         
         if not os.path.exists("data"):
