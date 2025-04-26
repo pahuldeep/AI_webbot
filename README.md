@@ -20,4 +20,4 @@ System prototype:
 
 
 ### it use SFT which is slow and inefficient.
-- next i will try Reinforcement Learning for Better efficiency
+- will try Reinforcement Learning for Better Reasoning based LRM (arXiv:2501.09686v3)
