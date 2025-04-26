@@ -15,7 +15,9 @@ System prototype:
 
 - python cli.py crawl https://botpenguin.com
 - python cli.py process "What chatbot pricing options exist?"
-- python cli.py summarize
-- python cli.py ask "How much does the chatbot cost?"
+- python cli.py memory
+- python cli.py ask "How much does the chatbot cost?" - "update soon"
 
-- python cli.py bot "update soon"
+
+### it use SFT which is slow and inefficient.
+- next i will try Reinforcement Learning for Better efficiency

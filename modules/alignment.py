@@ -30,10 +30,11 @@ for match in re.finditer(phone_pattern, text):
         'word': match.group(),
     })
 
-# Combine all results
-all_results = ner_results + money_matches + phone_matches
+# # Combine all results
+# all_results = ner_results + money_matches + phone_matches
 
-# Sort by position in text
-all_results.sort(key=lambda x: x['start'] if 'start' in x else x.get('start_pos', 0))
+# # Sort by position in text
+# all_results.sort(key=lambda x: x['start'] if 'start' in x else x.get('start_pos', 0))
 
-print(all_results)
+# print(all_results)
+

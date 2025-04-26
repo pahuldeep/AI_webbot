@@ -167,7 +167,7 @@ class WebScrapeProcessor:
         logging.info("Processing complete.")
         return merged_chunks
 
-def run_processor(query = '', top_k = 25, input_file="data/crawl_data.json"):
+def run_processor(query = '', top_k = 20, input_file="data/crawl_data.json"):
     """ query: str, top_k: int, input_file: str """
     
     processor = WebScrapeProcessor(input_file)

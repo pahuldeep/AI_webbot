@@ -85,7 +85,7 @@ class SummaryGenerator:
             logging.error(f"Failed to classify topic: {e}")
             return []
 
-    def summarize_chunks(self, input_file="data/processed_chunks.json", output_file="data/memory.json"):
+    def summarize_chunks(self, input_file="data/chunks.json", output_file="data/memory.json"):
         try:
             with open(input_file, "r", encoding="utf-8") as f:
                 chunks = json.load(f)
@@ -113,11 +113,11 @@ class SummaryGenerator:
 def run_memory(use_local=True, hf_token="your_token_here"):
 
     if hf_token.startswith("hf_"):
-        print("Using InferenceClient for summarization.")
+        print("Using InferenceClient for memory.")
         summarizer = SummaryGenerator(hf_token=hf_token)
 
     else:
-        print("Using local model for summarization.")
+        print("Using local model for memory.")
         summarizer = SummaryGenerator(use_local=use_local)
 
     summarizer.summarize_chunks()
